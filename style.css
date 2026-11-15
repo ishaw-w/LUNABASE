@@ -1,0 +1,1449 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background: #08091c;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color: white;
+    font-family: 'Silkscreen', sans-serif;
+}
+
+.game-shell {
+    width: 100%;
+    max-width: 1200px;
+    padding: 12px;
+    background: #172d59;
+    border: 5px solid #496fba;
+    box-shadow:
+        0 0 0 5px #10172e,
+        0 0 35px #324eaa;
+}
+
+.arcade-frame {
+    border: 4px solid #7799d1;
+    background: #101020;
+    overflow: hidden;
+}
+
+.top-bar {
+    min-height: 52px;
+    background: linear-gradient(90deg, #233f79, #367ab4, #233f79);
+    border-bottom: 5px solid #10172e;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 22px;
+    font-family: 'Press Start 2P';
+    font-size: 10px;
+    color: #f7d75e;
+}
+
+.version {
+    color: #a9dcff;
+    font-size: 8px;
+}
+
+.screen {
+    display: none;
+    min-height: 650px;
+}
+
+.screen.active {
+    display: block;
+}
+
+/* HOME SPACE SCENE */
+
+.space-scene {
+    height: 650px;
+    position: relative;
+    overflow: hidden;
+    background:
+        radial-gradient(ellipse at 50% 65%, #272050 0%, transparent 55%),
+        linear-gradient(#09091e, #171535 75%, #394d71);
+}
+
+.stars,
+.menu-stars {
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(2px 2px at 10% 15%, white 50%, transparent),
+        radial-gradient(3px 3px at 25% 32%, #62d8ff 50%, transparent),
+        radial-gradient(2px 2px at 40% 12%, white 50%, transparent),
+        radial-gradient(3px 3px at 57% 25%, #ffdc75 50%, transparent),
+        radial-gradient(2px 2px at 70% 10%, white 50%, transparent),
+        radial-gradient(3px 3px at 85% 35%, #c68bff 50%, transparent),
+        radial-gradient(2px 2px at 93% 15%, white 50%, transparent),
+        radial-gradient(2px 2px at 15% 65%, #f8d978 50%, transparent),
+        radial-gradient(3px 3px at 80% 70%, white 50%, transparent);
+    background-size: 300px 250px;
+    animation: starMove 12s linear infinite;
+}
+
+@keyframes starMove {
+    from { transform: translateY(0); }
+    to { transform: translateY(-50px); }
+}
+
+/* PLANETS */
+
+.planet {
+    position: absolute;
+    border-radius: 50%;
+    image-rendering: pixelated;
+    box-shadow: inset -15px -12px 0 rgba(0,0,0,0.3);
+}
+
+.planet-orange {
+    width: 115px;
+    height: 115px;
+    top: 45px;
+    left: 25%;
+    background:
+        repeating-linear-gradient(
+            0deg,
+            transparent 0 12px,
+            rgba(120,54,25,.3) 12px 17px
+        ),
+        #d77d49;
+    box-shadow: inset -15px -12px 0 #934a3c,
+                0 0 35px #a64d4d;
+}
+
+.planet-blue {
+    width: 175px;
+    height: 175px;
+    right: 5%;
+    top: 100px;
+    background:
+        repeating-linear-gradient(
+            20deg,
+            #267db7 0 18px,
+            #12518f 18px 26px,
+            #328ec5 26px 34px
+        );
+    box-shadow: inset -25px -20px 0 #103a77,
+                0 0 35px #266cb8;
+}
+
+.planet-purple {
+    width: 100px;
+    height: 100px;
+    left: 5%;
+    top: 190px;
+    background: repeating-linear-gradient(
+        45deg,
+        #5548a8 0 12px,
+        #322d77 12px 20px
+    );
+    box-shadow: inset -15px -12px 0 #262459;
+}
+
+.shooting-star {
+    position: absolute;
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(90deg, #ffffff, transparent);
+    top: 160px;
+    left: 60%;
+    transform: rotate(-35deg);
+    animation: shooting 4s infinite;
+}
+
+@keyframes shooting {
+    0%, 65%, 100% {
+        opacity: 0;
+        transform: translate(0, 0) rotate(-35deg);
+    }
+    70% {
+        opacity: 1;
+    }
+    85% {
+        opacity: 0;
+        transform: translate(100px, 70px) rotate(-35deg);
+    }
+}
+
+/* GAME TITLE */
+
+.title-area {
+    position: absolute;
+    z-index: 3;
+    top: 100px;
+    width: 100%;
+    text-align: center;
+}
+
+.small-title {
+    color: #a7dfff;
+    font-size: 12px;
+    letter-spacing: 3px;
+    margin-bottom: 22px;
+}
+
+.game-title {
+    font-family: 'Press Start 2P';
+    font-size: clamp(32px, 6vw, 65px);
+    line-height: 1.6;
+    color: #fff5cf;
+    text-shadow:
+        5px 5px 0 #405dba,
+        9px 9px 0 #14152f,
+        0 0 25px #a3dfff;
+}
+
+.game-title span {
+    color: #ffcf68;
+}
+
+.subtitle {
+    color: #b5c9ff;
+    font-size: 11px;
+    margin-top: 12px;
+    letter-spacing: 2px;
+}
+
+.astronaut {
+    font-size: 68px;
+    margin: 18px auto;
+    animation: float 3s ease-in-out infinite;
+    filter: drop-shadow(0 0 12px #7bdfff);
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+/* BUTTONS */
+
+.start-button {
+    padding: 19px 27px;
+    background: #ffce58;
+    color: #8b245c;
+    border: 5px solid #f78cbd;
+    box-shadow: 0 7px 0 #98416f;
+    font-family: 'Press Start 2P';
+    font-size: 12px;
+    cursor: pointer;
+    transition: .2s;
+    animation: pulse 1.8s infinite;
+}
+
+.start-button:hover {
+    background: #fff080;
+    transform: scale(1.07);
+}
+
+@keyframes pulse {
+    50% { filter: brightness(1.2); }
+}
+
+.press-text {
+    font-size: 9px;
+    margin-top: 25px;
+    color: #9db6e7;
+}
+
+/* MOON */
+
+.moon-landscape {
+    position: absolute;
+    bottom: -90px;
+    width: 120%;
+    left: -10%;
+    height: 220px;
+    border-radius: 50% 50% 0 0;
+    background:
+        radial-gradient(ellipse at 25% 30%, #8496ac 0 7%, transparent 8%),
+        radial-gradient(ellipse at 60% 35%, #526b85 0 10%, transparent 11%),
+        radial-gradient(ellipse at 80% 20%, #8b9eb0 0 6%, transparent 7%),
+        repeating-linear-gradient(0deg, #4e627e 0 20px, #354963 20px 40px);
+    border-top: 9px solid #a6bbd0;
+}
+
+.crater {
+    position: absolute;
+    border: 6px solid #a2b3c4;
+    border-bottom: 9px solid #253951;
+    background: #3b526c;
+    border-radius: 50%;
+}
+
+.crater-one {
+    width: 110px;
+    height: 35px;
+    top: 20px;
+    left: 15%;
+}
+
+.crater-two {
+    width: 150px;
+    height: 45px;
+    top: 60px;
+    left: 43%;
+}
+
+.crater-three {
+    width: 90px;
+    height: 30px;
+    top: 15px;
+    right: 15%;
+}
+
+.crater-four {
+    width: 125px;
+    height: 40px;
+    top: 85px;
+    right: 40%;
+}
+
+.bottom-bar {
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background: #213d73;
+    color: #ffda70;
+    font-family: 'Press Start 2P';
+    font-size: 9px;
+}
+
+/* MISSION MENU */
+
+.menu-scene {
+    min-height: 650px;
+    position: relative;
+    background:
+        radial-gradient(ellipse at center, #252348, #080914 75%);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 35px 20px;
+}
+
+.menu-heading {
+    text-align: center;
+    z-index: 2;
+}
+
+.menu-heading h2,
+.information-scene h2 {
+    font-family: 'Press Start 2P';
+    color: #75cfff;
+    font-size: clamp(17px, 3vw, 28px);
+    line-height: 1.7;
+    text-shadow: 4px 4px #192d64;
+}
+
+.menu-heading p {
+    color: #e2d5ff;
+    font-size: 11px;
+    margin-top: 15px;
+}
+
+.arcade-stats {
+    width: 100%;
+    max-width: 650px;
+    display: flex;
+    justify-content: space-between;
+    margin: 35px 0 15px;
+    color: #ffd45c;
+    font-size: 15px;
+}
+
+.menu-astronauts {
+    width: 100%;
+    max-width: 700px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 65px;
+}
+
+.menu-options {
+    width: min(100%, 460px);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin: 25px 0;
+    z-index: 2;
+}
+
+.menu-button {
+    padding: 19px 12px;
+    background: #1b2c55;
+    color: #80b9ed;
+    border: 4px solid #526ca9;
+    font-family: 'Press Start 2P';
+    font-size: 12px;
+    cursor: pointer;
+    box-shadow: 0 6px #10172e;
+    transition: .2s;
+}
+
+.menu-button:hover {
+    color: #fff;
+    background: #354e91;
+    transform: translateY(-4px);
+}
+
+.menu-button.primary {
+    background: #311b4d;
+    color: #d8ff61;
+    border-color: #ce82ca;
+    padding: 25px 10px;
+    font-size: 14px;
+}
+
+.menu-footer {
+    color: #a5a8d2;
+    font-size: 10px;
+}
+
+/* BRIEFING */
+
+.information-scene {
+    min-height: 650px;
+    background:
+        radial-gradient(ellipse at top, #29376b, #101024 75%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 20px;
+    text-align: center;
+    gap: 20px;
+}
+
+.pixel-tag {
+    color: #f8d267;
+    font-size: 11px;
+}
+
+.briefing-card {
+    width: min(100%, 620px);
+    background: #171a36;
+    border: 5px solid #aa72ba;
+    box-shadow: 7px 7px #080b1c;
+    padding: 25px;
+    line-height: 2;
+}
+
+.briefing-icon {
+    font-size: 45px;
+    margin-bottom: 10px;
+}
+
+.briefing-card h3 {
+    font-family: 'Press Start 2P';
+    color: #f4d568;
+    font-size: 14px;
+    line-height: 2;
+    margin-bottom: 15px;
+}
+
+.briefing-card p {
+    font-size: 13px;
+    color: #d6d9f5;
+    margin-bottom: 12px;
+}
+
+.objectives {
+    margin-top: 20px;
+    text-align: left;
+    border-top: 2px dashed #6974a4;
+    padding-top: 15px;
+    color: #90dbff;
+    font-size: 12px;
+}
+
+.back-button {
+    background: transparent;
+    color: #b5c9ff;
+    border: none;
+    font-family: 'Silkscreen';
+    font-size: 13px;
+    cursor: pointer;
+}
+
+/* MOBILE */
+
+@media(max-width: 600px) {
+    body { padding: 5px; }
+
+    .game-shell { padding: 5px; }
+
+    .screen { min-height: 600px; }
+
+    .space-scene { height: 600px; }
+
+    .planet-blue {
+        width: 110px;
+        height: 110px;
+        right: -15px;
+    }
+
+    .planet-orange {
+        width: 75px;
+        height: 75px;
+    }
+
+    .planet-purple {
+        width: 65px;
+        height: 65px;
+    }
+
+    .title-area { top: 145px; }
+
+    .small-title { font-size: 8px; }
+
+    .game-title { font-size: 30px; }
+
+    .subtitle { font-size: 8px; }
+
+    .start-button {
+        font-size: 9px;
+        padding: 15px 12px;
+    }
+
+    .top-bar { font-size: 7px; }
+
+    .bottom-bar { font-size: 7px; }
+
+    .menu-astronauts { font-size: 40px; }
+
+    .menu-button { font-size: 9px; }
+}
+
+/* ASTRONAUT PROFILE */
+
+.profile-scene {
+    min-height: 650px;
+    background:
+        radial-gradient(ellipse at center, #29234f, #090a20 80%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 35px 15px;
+    text-align: center;
+    gap: 17px;
+}
+
+.profile-scene h2 {
+    font-family: 'Press Start 2P';
+    color: #85d8ff;
+    font-size: clamp(15px, 3vw, 23px);
+    line-height: 1.8;
+    text-shadow: 4px 4px #283d78;
+}
+
+.character-preview {
+    width: min(100%, 390px);
+    padding: 15px;
+    background: #171b39;
+    border: 4px solid #876cc2;
+    box-shadow: 6px 6px #090b1b;
+}
+
+.character-sprite {
+    font-size: 85px;
+    margin: 10px;
+    animation: float 3s infinite ease-in-out;
+    filter: drop-shadow(0 0 15px #64cfff);
+    transition: .2s;
+}
+
+#suit-label {
+    font-family: 'Press Start 2P';
+    color: #ffe17b;
+    font-size: 9px;
+}
+
+.character-hint {
+    font-size: 9px;
+    color: #a6b8e7;
+    margin-top: 10px;
+}
+
+.profile-form {
+    width: min(100%, 430px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 13px;
+}
+
+.profile-form label {
+    font-family: 'Press Start 2P';
+    color: #a9ddff;
+    font-size: 9px;
+    margin-top: 10px;
+}
+
+.profile-form input {
+    width: 100%;
+    padding: 16px;
+    background: #11152d;
+    border: 3px solid #607cb9;
+    color: white;
+    font-family: 'Silkscreen';
+    font-size: 13px;
+    outline: none;
+    text-align: center;
+}
+
+.profile-form input:focus {
+    border-color: #f0a6ed;
+    box-shadow: 0 0 12px #a76dc4;
+}
+
+.profile-form input::placeholder {
+    color: #747d9f;
+}
+
+.suit-options {
+    display: flex;
+    gap: 15px;
+}
+
+.suit-choice {
+    width: 54px;
+    height: 48px;
+    font-size: 22px;
+    background: #202448;
+    border: 3px solid #526b9e;
+    cursor: pointer;
+}
+
+.suit-choice.selected {
+    border-color: #ffe16b;
+    box-shadow: 0 0 12px #f4d56d;
+    transform: translateY(-4px);
+}
+
+.difficulty-options {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.difficulty-card {
+    min-width: 0;
+    padding: 13px 4px;
+    background: #1b2244;
+    color: white;
+    border: 3px solid #526b9e;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    align-items: center;
+}
+
+.difficulty-card span {
+    font-size: 22px;
+}
+
+.difficulty-card strong {
+    font-family: 'Press Start 2P';
+    font-size: 7px;
+}
+
+.difficulty-card small {
+    font-family: 'Silkscreen';
+    color: #a8c8f4;
+    font-size: 10px;
+}
+
+.difficulty-card.selected {
+    border-color: #ffcf64;
+    background: #3c315a;
+    box-shadow: 0 0 12px #b08ad4;
+}
+
+.profile-error {
+    color: #ff7777;
+    font-size: 11px;
+    min-height: 15px;
+}
+
+@media(max-width: 600px) {
+    .profile-scene h2 {
+        font-size: 13px;
+    }
+
+    .difficulty-card strong {
+        font-size: 6px;
+    }
+
+    .character-sprite {
+        font-size: 65px;
+    }
+}
+
+/* ==================================
+   LUNABASE MAIN GAME
+================================== */
+
+.base-game {
+    min-height: 750px;
+    background: #101329;
+    padding: 16px;
+    position: relative;
+    font-family: 'Silkscreen', sans-serif;
+    overflow: hidden;
+}
+
+/* HEADER */
+
+.base-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #202b58;
+    border: 3px solid #6685c4;
+    padding: 13px 18px;
+    margin-bottom: 12px;
+}
+
+.base-header h2 {
+    font-family: 'Press Start 2P';
+    color: #8cdbff;
+    font-size: 17px;
+}
+
+.base-header p {
+    color: #b9c6ef;
+    font-size: 9px;
+    margin-top: 9px;
+}
+
+.day-counter {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    gap: 7px;
+    color: #fbd875;
+    font-size: 9px;
+}
+
+.day-counter strong {
+    font-family: 'Press Start 2P';
+    font-size: 15px;
+}
+
+/* RESOURCE DASHBOARD */
+
+.resource-dashboard {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.resource {
+    background: #1c2344;
+    border: 2px solid #536a9d;
+    padding: 11px 8px;
+    min-width: 0;
+}
+
+.resource span {
+    display: block;
+    font-size: 8px;
+    color: #c3d3ff;
+    white-space: nowrap;
+}
+
+.resource strong {
+    display: block;
+    margin: 9px 0;
+    font-family: 'Press Start 2P';
+    font-size: 12px;
+    color: white;
+}
+
+.meter {
+    width: 100%;
+    height: 9px;
+    background: #090e24;
+    border: 1px solid #53638a;
+    overflow: hidden;
+}
+
+.meter-fill {
+    width: 50%;
+    height: 100%;
+    transition: width .5s ease;
+}
+
+.oxygen-fill { background: #43d7ff; }
+.water-fill { background: #388cff; }
+.energy-fill { background: #ffe26a; }
+.food-fill { background: #78db80; }
+.health-fill { background: #ff668c; }
+.shield-fill { background: #b88aff; }
+
+/* PIXEL MOON WORLD */
+
+.moon-game-world {
+    height: 365px;
+    position: relative;
+    overflow: hidden;
+    border: 4px solid #647fbd;
+    background:
+        radial-gradient(ellipse at 48% 40%, #31295c, transparent 65%),
+        linear-gradient(#10122c, #29244c 75%, #65748b);
+}
+
+.world-label {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 5;
+    padding: 8px;
+    color: #ffe17c;
+    background: #15172f;
+    border: 2px solid #8173b4;
+    font-size: 9px;
+}
+
+.world-stars {
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(2px 2px at 10% 15%, white 50%, transparent),
+        radial-gradient(3px 3px at 30% 25%, #8de6ff 50%, transparent),
+        radial-gradient(2px 2px at 50% 12%, white 50%, transparent),
+        radial-gradient(3px 3px at 70% 20%, #f8d56b 50%, transparent),
+        radial-gradient(2px 2px at 90% 30%, white 50%, transparent);
+    background-size: 180px 120px;
+    animation: starMove 15s linear infinite;
+}
+
+.earth-decoration {
+    position: absolute;
+    top: 45px;
+    right: 55px;
+    font-size: 45px;
+    filter: drop-shadow(0 0 15px #539bff);
+}
+
+/* BUILDINGS */
+
+.base-buildings {
+    position: absolute;
+    z-index: 3;
+    top: 95px;
+    left: 4%;
+    right: 4%;
+    display: flex;
+    justify-content: space-around;
+    align-items: end;
+    gap: 10px;
+}
+
+.building {
+    width: 18%;
+    min-height: 125px;
+    padding: 10px 3px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #26375d;
+    border: 4px solid #9db8db;
+    border-bottom: 9px solid #465b7d;
+    color: white;
+    cursor: pointer;
+    box-shadow: 5px 6px #11182e;
+    transition: .2s;
+}
+
+.building:hover {
+    transform: translateY(-9px);
+    border-color: #ffe17a;
+    filter: brightness(1.25);
+}
+
+.building-icon {
+    font-size: 35px;
+    filter: drop-shadow(0 0 5px #7cdcff);
+}
+
+.building-name {
+    font-family: 'Press Start 2P';
+    font-size: 7px;
+    color: #fff0a5;
+    line-height: 1.7;
+}
+
+.building-status {
+    font-size: 8px;
+    color: #79f0a4;
+}
+
+.greenhouse {
+    background: #244e56;
+    border-color: #77cbb5;
+}
+
+.solar {
+    background: #514477;
+    border-color: #b8a5e9;
+}
+
+.oxygen-station {
+    background: #284e77;
+}
+
+.water-station {
+    background: #28557d;
+}
+
+/* GROUND */
+
+.moon-ground {
+    position: absolute;
+    bottom: -90px;
+    left: -5%;
+    width: 110%;
+    height: 190px;
+    border-radius: 50% 50% 0 0;
+    background:
+        radial-gradient(ellipse at 20% 20%, #9aa9bd 0 6%, transparent 7%),
+        radial-gradient(ellipse at 60% 20%, #899ab0 0 9%, transparent 10%),
+        repeating-linear-gradient(
+            0deg,
+            #596a85 0 20px,
+            #465770 20px 38px
+        );
+    border-top: 7px solid #a9b7c9;
+}
+
+.rover-decoration {
+    position: absolute;
+    z-index: 4;
+    bottom: 38px;
+    left: 10%;
+    font-size: 37px;
+    animation: roverMove 8s ease-in-out infinite alternate;
+}
+
+@keyframes roverMove {
+    from { transform: translateX(0); }
+    to { transform: translateX(90px); }
+}
+
+.base-astronaut {
+    position: absolute;
+    z-index: 4;
+    bottom: 25px;
+    right: 13%;
+    font-size: 42px;
+    animation: float 3s infinite ease-in-out;
+}
+
+/* BUILDING PANEL */
+
+.building-panel {
+    display: none;
+    position: relative;
+    margin: 13px 0;
+    padding: 20px;
+    background: #24244d;
+    border: 4px solid #b68bdd;
+    box-shadow: 5px 5px #080a1a;
+    color: white;
+}
+
+.building-panel.open {
+    display: block;
+}
+
+.building-panel h3 {
+    font-family: 'Press Start 2P';
+    color: #ffe17a;
+    font-size: 13px;
+    margin-bottom: 13px;
+    padding-right: 35px;
+    line-height: 1.8;
+}
+
+.building-panel p {
+    font-size: 12px;
+    line-height: 2;
+    color: #c7d5fa;
+}
+
+.close-panel {
+    position: absolute;
+    top: 9px;
+    right: 10px;
+    background: #8d365d;
+    color: white;
+    border: 2px solid #ff9dbb;
+    padding: 7px 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.building-action {
+    background: #354e86;
+    border: 3px solid #8eb8ec;
+    color: white;
+    padding: 12px 15px;
+    margin: 12px 8px 0 0;
+    font-family: 'Silkscreen';
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.building-action:hover {
+    background: #526eaf;
+}
+
+/* ASTRO */
+
+.astro-panel {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-top: 13px;
+    padding: 12px;
+    background: #252247;
+    border: 3px solid #9c80ca;
+}
+
+.astro-character {
+    font-size: 47px;
+    filter: drop-shadow(0 0 8px #6edaff);
+    animation: float 3s infinite ease-in-out;
+}
+
+.astro-message strong {
+    font-family: 'Press Start 2P';
+    font-size: 9px;
+    color: #fbd875;
+}
+
+.astro-message p {
+    color: #d3dafa;
+    font-size: 11px;
+    margin-top: 9px;
+    line-height: 1.8;
+}
+
+/* ACTION BAR */
+
+.base-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+.science-score {
+    color: #a6dfff;
+    font-size: 11px;
+}
+
+.science-score strong {
+    color: #ffe27a;
+    font-family: 'Press Start 2P';
+}
+
+.next-day-button {
+    padding: 17px 22px;
+    background: #f4c858;
+    border: 4px solid #f49ac8;
+    box-shadow: 0 6px #944b80;
+    color: #60254f;
+    font-family: 'Press Start 2P';
+    font-size: 10px;
+    cursor: pointer;
+}
+
+.next-day-button:hover {
+    background: #fff18b;
+    transform: translateY(-3px);
+}
+
+.game-notification {
+    margin-top: 12px;
+    min-height: 25px;
+    color: #ffe17a;
+    font-size: 11px;
+    text-align: center;
+}
+
+/* MISSION RESULTS */
+
+.result-scene {
+    min-height: 650px;
+    padding: 40px 20px;
+    background: radial-gradient(#34305e, #090b20);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 25px;
+}
+
+.result-astronaut {
+    font-size: 85px;
+    animation: float 3s infinite ease-in-out;
+}
+
+.result-scene h2 {
+    color: #ffe17a;
+    font-family: 'Press Start 2P';
+    font-size: clamp(16px, 3vw, 26px);
+    line-height: 1.8;
+}
+
+.result-scene p {
+    font-size: 13px;
+    color: #d6dcff;
+    line-height: 2;
+}
+
+.result-stats {
+    background: #20234a;
+    border: 4px solid #8b80c5;
+    padding: 25px;
+    width: min(100%, 440px);
+}
+
+.result-stats strong {
+    color: #ffe17a;
+}
+
+/* RESPONSIVE */
+
+@media(max-width: 850px) {
+    .resource-dashboard {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .base-buildings {
+        flex-wrap: wrap;
+        top: 95px;
+        justify-content: center;
+    }
+
+    .building {
+        width: 29%;
+        min-height: 105px;
+    }
+
+    .moon-game-world {
+        height: 410px;
+    }
+}
+
+@media(max-width: 500px) {
+    .base-game {
+        padding: 8px;
+    }
+
+    .base-header h2 {
+        font-size: 12px;
+    }
+
+    .resource {
+        padding: 7px 4px;
+    }
+
+    .resource span {
+        font-size: 7px;
+    }
+
+    .resource strong {
+        font-size: 9px;
+    }
+
+    .building {
+        width: 30%;
+        min-height: 95px;
+    }
+
+    .building-icon {
+        font-size: 25px;
+    }
+
+    .building-name {
+        font-size: 6px;
+    }
+
+    .astro-message p {
+        font-size: 9px;
+    }
+
+    .next-day-button {
+        font-size: 8px;
+        padding: 14px;
+    }
+}
+.radiation-station {
+    background: #49365f;
+    border-color: #bb91e9;
+}
+
+.base-buildings .building {
+    width: 15.5%;
+}
+
+/* ==========================================
+   LUNABASE - PLAYABLE SURVIVAL GAME
+========================================== */
+
+#game-screen {
+    min-height: 700px;
+    background: #0c1027;
+}
+
+.survival-game {
+    padding: 15px;
+    background: linear-gradient(145deg, #10152e, #202044);
+    color: white;
+    font-family: 'Silkscreen', sans-serif;
+}
+
+.survival-header,
+.game-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding: 14px;
+    background: #202b58;
+    border: 3px solid #6685c4;
+}
+
+.survival-header h2 {
+    font-family: 'Press Start 2P';
+    color: #8cdbff;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+.survival-header p {
+    color: #c1cfff;
+    font-size: 9px;
+}
+
+.survival-status {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #ffe17a;
+    font-size: 10px;
+}
+
+.survival-status button,
+.game-bottom button {
+    padding: 10px 13px;
+    background: #f4c858;
+    border: 3px solid #f49ac8;
+    color: #60254f;
+    font-family: 'Press Start 2P';
+    font-size: 8px;
+    cursor: pointer;
+}
+
+.survival-hud {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 7px;
+    margin: 12px 0;
+}
+
+.hud-item {
+    padding: 12px 6px;
+    background: #1d274c;
+    border: 2px solid #657db6;
+    text-align: center;
+    color: #bfe6ff;
+    font-size: 9px;
+}
+
+.hud-item strong {
+    display: block;
+    color: #ffe17a;
+    font-family: 'Press Start 2P';
+    font-size: 13px;
+    margin-top: 9px;
+}
+
+.game-canvas-wrap {
+    position: relative;
+    width: 100%;
+    border: 4px solid #718dca;
+    background: #090d24;
+    overflow: hidden;
+}
+
+#gameCanvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    image-rendering: pixelated;
+}
+
+.game-message {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: max-content;
+    max-width: 90%;
+    padding: 10px 14px;
+    background: rgba(10, 14, 37, .9);
+    border: 2px solid #8acfff;
+    color: #fff0a2;
+    font-size: 10px;
+    text-align: center;
+    pointer-events: none;
+}
+
+.pause-overlay {
+    display: none;
+    position: absolute;
+    inset: 0;
+    background: rgba(5, 8, 25, .88);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.pause-overlay.show {
+    display: flex;
+}
+
+.pause-overlay h2 {
+    font-family: 'Press Start 2P';
+    color: #ffe17a;
+    font-size: 20px;
+    text-align: center;
+}
+
+.pause-overlay button {
+    padding: 15px 25px;
+    background: #ffe17a;
+    border: 3px solid #f49ac8;
+    font-family: 'Press Start 2P';
+    cursor: pointer;
+}
+
+.game-lower {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.mission-objectives {
+    padding: 16px;
+    background: #1b2244;
+    border: 3px solid #657db6;
+    line-height: 2;
+}
+
+.mission-objectives h3 {
+    font-family: 'Press Start 2P';
+    color: #ffe17a;
+    font-size: 10px;
+    line-height: 2;
+    margin-bottom: 10px;
+}
+
+.mission-objectives p {
+    color: #c7ddff;
+    font-size: 10px;
+}
+
+.mission-objectives p.done {
+    color: #7dffad;
+    text-decoration: line-through;
+}
+
+
+.game-controls {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px 20px;
+    padding: 14px 8px;
+    margin-top: 12px;
+    background: #121a39;
+    border: 2px dashed #718dca;
+    color: #c5d9ff;
+    font-size: 9px;
+}
+
+.game-controls strong {
+    color: #ffe17a;
+}
+
+.game-bottom {
+    margin-top: 12px;
+    color: #aee2ff;
+    font-size: 10px;
+}
+
+@media(max-width: 700px) {
+    .survival-hud {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .game-lower {
+        grid-template-columns: 1fr;
+    }
+
+    .survival-header h2 {
+        font-size: 11px;
+    }
+
+    .game-message {
+        font-size: 8px;
+    }
+
+    .game-controls {
+        font-size: 8px;
+    }
+}
+
+
+
+/* Final campaign actions */
+.result-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 22px;
+}
+.result-actions button {
+    min-width: 190px;
+}

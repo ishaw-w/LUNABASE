@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUNABASE - Junior Astronaut Mission</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Silkscreen:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main class="game-shell">
+
+        <div class="arcade-frame">
+
+            <header class="top-bar">
+                <div class="arcade-label">★ SPACE EXPLORER ★</div>
+                <div class="version">MISSION 001</div>
+            </header>
+
+            <!-- HOME SCREEN -->
+            <section id="home-screen" class="screen active">
+
+                <div class="space-scene">
+
+                    <div class="stars" id="stars"></div>
+
+                    <div class="planet planet-orange"></div>
+                    <div class="planet planet-blue"></div>
+                    <div class="planet planet-purple"></div>
+
+                    <div class="shooting-star"></div>
+
+                    <div class="title-area">
+                        <p class="small-title">WELCOME, JUNIOR ASTRONAUT</p>
+
+                        <h1 class="game-title">
+                            LUNA<span>BASE</span>
+                        </h1>
+
+                        <p class="subtitle">
+                            YOUR FIRST MISSION BEGINS HERE
+                        </p>
+
+                        <div class="astronaut">
+                            👨‍🚀
+                        </div>
+
+                        <button class="start-button" onclick="startGame()">
+                            ▶ START MISSION
+                        </button>
+
+                        <p class="press-text">PRESS TO BEGIN YOUR ADVENTURE</p>
+                    </div>
+
+                    <div class="moon-landscape">
+                        <div class="crater crater-one"></div>
+                        <div class="crater crater-two"></div>
+                        <div class="crater crater-three"></div>
+                        <div class="crater crater-four"></div>
+                    </div>
+
+                </div>
+
+                <footer class="bottom-bar">
+                    <span>★ EXPLORE</span>
+                    <span>★ DISCOVER</span>
+                    <span>★ SURVIVE</span>
+                </footer>
+
+            </section>
+
+            <!-- MISSION MENU -->
+            <section id="menu-screen" class="screen">
+
+                <div class="menu-scene">
+
+                    <div class="menu-stars"></div>
+
+                    <div class="menu-heading">
+                        <h2>MISSION CONTROL</h2>
+                        <p>SELECT YOUR NEXT ADVENTURE</p>
+                    </div>
+
+                    <div class="arcade-stats">
+                        <div>★ <span id="score">000000</span></div>
+                        <div>♥ x 03</div>
+                    </div>
+
+                    <div class="menu-astronauts">
+                        <span>🚀</span>
+                        <span>🚀</span>
+                    </div>
+
+                    <div class="menu-options">
+
+                        <button class="menu-button primary" onclick="showProfile()">
+                            START MISSION
+                        </button>
+
+                        <button class="menu-button" onclick="showInstructions()">
+                            HOW TO PLAY
+                        </button>
+
+                        <button class="menu-button" onclick="showAbout()">
+                            ABOUT LUNABASE
+                        </button>
+
+                    </div>
+
+                    <p class="menu-footer">
+                        CHOOSE YOUR DESTINY, COMMANDER!
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- ASTRONAUT SELECTION SCREEN -->
+
+            <section id="profile-screen" class="screen">
+
+                <div class="profile-scene">
+
+                    <p class="pixel-tag">ASTRONAUT REGISTRATION</p>
+
+                    <h2>CHOOSE YOUR ASTRONAUT</h2>
+
+                    <div class="character-preview">
+
+                        <div id="astronaut-avatar" class="character-sprite">
+                            👨‍🚀
+                        </div>
+
+                        <p id="suit-label">CYAN EXPLORER SUIT</p>
+
+                        <p class="character-hint">YOUR SPACE ADVENTURE STARTS HERE</p>
+
+                    </div>
+
+                    <div class="profile-form">
+
+                        <label for="player-name">ASTRONAUT NAME</label>
+
+                        <input type="text" id="player-name" placeholder="ENTER YOUR NAME..." maxlength="16">
+
+                        <label>CHOOSE YOUR SUIT</label>
+
+                        <div class="suit-options">
+
+                            <button class="suit-choice selected" onclick="selectSuit('cyan', this)"
+                                aria-label="Cyan suit">🔵</button>
+
+                            <button class="suit-choice" onclick="selectSuit('orange', this)"
+                                aria-label="Orange suit">🟠</button>
+
+                            <button class="suit-choice" onclick="selectSuit('purple', this)"
+                                aria-label="Purple suit">🟣</button>
+
+                            <button class="suit-choice" onclick="selectSuit('green', this)"
+                                aria-label="Green suit">🟢</button>
+
+                        </div>
+
+                        <label>SELECT DIFFICULTY</label>
+
+                        <div class="difficulty-options">
+
+                            <button class="difficulty-card selected" onclick="selectDifficulty('Cadet', this)">
+                                <span>⭐</span>
+                                <strong>CADET</strong>
+                                <small>Easy</small>
+                            </button>
+
+                            <button class="difficulty-card" onclick="selectDifficulty('Explorer', this)">
+                                <span>🚀</span>
+                                <strong>EXPLORER</strong>
+                                <small>Medium</small>
+                            </button>
+
+                            <button class="difficulty-card" onclick="selectDifficulty('Commander', this)">
+                                <span>👑</span>
+                                <strong>COMMANDER</strong>
+                                <small>Hard</small>
+                            </button>
+
+                        </div>
+
+                        <p id="profile-error" class="profile-error"></p>
+
+                        <button class="start-button" onclick="saveProfile()">
+                            CONTINUE ▶
+                        </button>
+
+                        <button class="back-button" onclick="showScreen('menu-screen')">
+                            ← BACK TO MENU
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- MISSION BRIEFING -->
+            <section id="briefing-screen" class="screen">
+
+                <div class="information-scene">
+
+                    <div class="pixel-tag">CLASSIFIED MISSION FILE</div>
+
+                    <h2>MISSION BRIEFING</h2>
+
+                    <div class="briefing-card">
+                        <div class="briefing-icon">🌕</div>
+
+                        <h3>THE LUNAR OUTPOST</h3>
+
+                        <p>
+                            Commander, your mission is to establish and
+                            manage a lunar research base.
+                        </p>
+
+                        <p>
+                            Keep your crew alive, manage essential
+                            resources and survive for 10 game days.
+                        </p>
+
+                        <div class="objectives">
+                            <p>★ Maintain oxygen and water</p>
+                            <p>★ Generate sufficient power</p>
+                            <p>★ Grow food for your crew</p>
+                            <p>★ Protect your base from radiation</p>
+                            <p>★ Complete scientific research</p>
+                        </div>
+                    </div>
+
+                    <button class="start-button" onclick="enterBase()">
+                        ACCEPT MISSION
+                    </button>
+
+                    <button class="back-button" onclick="showScreen('menu-screen')">
+                        ← BACK TO MENU
+                    </button>
+
+                </div>
+
+            </section>
+
+            <!-- MAIN LUNAR BASE GAME -->
+
+            <!-- PLAYABLE LUNAR SURVIVAL GAME -->
+            <section id="game-screen" class="screen">
+                <div class="survival-game">
+
+                    <div class="survival-header">
+                        <div>
+                            <h2>LUNABASE: SURVIVAL</h2>
+                            <p>MOON EXPLORATION MISSION</p>
+                        </div>
+                        <div class="survival-status">
+                            <span id="mission-day">MISSION DAY 01</span>
+                            <button onclick="togglePause()" id="pause-button">Ⅱ PAUSE</button>
+                        </div>
+                    </div>
+
+                    <div class="survival-hud">
+                        <div class="hud-item">🫁 OXYGEN <strong id="oxygen-value">100</strong></div>
+                        <div class="hud-item">⚡ ENERGY <strong id="energy-value">100</strong></div>
+                        <div class="hud-item">❤️ HEALTH <strong id="health-value">100</strong></div>
+                        <div class="hud-item">🛡️ RADIATION <strong id="radiation-value">0</strong></div>
+                        <div class="hud-item">🔬 SAMPLES <strong id="sample-value">0/3</strong></div>
+                    </div>
+
+                    <div class="game-canvas-wrap">
+                        <canvas id="gameCanvas" width="1000" height="560"></canvas>
+                        <div id="game-message" class="game-message">
+                            Welcome, astronaut! Explore the Moon and complete your mission.
+                        </div>
+                        <div id="pause-overlay" class="pause-overlay">
+                            <h2>MISSION PAUSED</h2>
+                            <button onclick="togglePause()">RESUME</button>
+                        </div>
+                    </div>
+
+                    <div class="game-lower">
+                        <div class="mission-objectives">
+                            <h3>MISSION OBJECTIVES</h3>
+                            <p id="objective-crates">□ Collect 3 supply crates</p>
+                            <p id="objective-solar">□ Repair the solar array</p>
+                            <p id="objective-habitat">□ Activate the lunar habitat</p>
+                            <p id="objective-samples">□ Collect 3 moon samples</p>
+                        </div>
+
+                    </div>
+
+                    <div class="game-controls">
+                        <strong>CONTROLS</strong>
+                        <span>W A S D / ARROWS — MOVE</span>
+                        <span>E — INTERACT</span>
+                        <span>SPACE — COLLECT / REPAIR</span>
+                        <span>ESC — PAUSE</span>
+                    </div>
+
+                    <div class="game-bottom">
+                        <span id="astro-message">ASTRO: Let's explore the Moon, Commander!</span>
+                        <button onclick="finishMission(false)">END MISSION</button>
+                    </div>
+
+                </div>
+            </section>
+
+
+            <!-- MISSION END SCREEN -->
+
+            <section id="result-screen" class="screen">
+
+                <div class="result-scene">
+                    <div class="result-astronaut">👨‍🚀</div>
+
+                    <h2 id="result-heading">MISSION COMPLETE!</h2>
+
+                    <p id="result-message"></p>
+
+                    <div class="result-stats">
+                        <p>FINAL SCIENCE SCORE: <strong id="final-science">0</strong></p>
+                        <p>MISSIONS COMPLETED: <strong id="final-days">0</strong></p>
+                        <p>CREW HEALTH: <strong id="final-health">0%</strong></p>
+                    </div>
+
+                    <div class="result-actions">
+                        <button class="start-button" onclick="goHome()">
+                            BACK TO MENU
+                        </button>
+                        <button class="menu-button" onclick="location.reload()">
+                            PLAY AGAIN
+                        </button>
+                    </div>
+                </div>
+
+            </section>
+
+
+        </div>
+
+    </main>
+
+    <script src="game.js"></script>
+
+</body>
+
+</html>
